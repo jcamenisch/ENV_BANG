@@ -10,7 +10,7 @@ Do a bang-up job managing your environment variables.
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
 
-- Provide a central place to specify all your app's environment variables.
+- Provide a central place to specify all your app’s environment variables.
 - Fail loudly and helpfully if environment variables are missing.
 - Prevent an application from starting up with missing environment variables.
   (This is especially helpful in environments like Heroku, as your app will
@@ -52,22 +52,21 @@ end
 A single variable can also be configured with `ENV!.use MY_VAR`, but the `ENV!.config` block
 will typically contain all the variables for your app.
 
-Once a variable is specified with `ENV!.use`, you can access it with
+Once a variable is specified with `ENV!.use`, access it with
 
 ```ruby
 ENV!['MY_VAR']
 ```
 
-This will function just like accessing the environment variable directly, except that it will
-require the variable to be specified with `ENV!.use`, and present in the current environment.
-If either of these conditions is not met, a KeyError will be raised with an explanation of
-what needs to be configured.
+This will function just like accessing `ENV` directly, except that it will require the variable
+to have been specified, and be present in the current environment. If either of these conditions
+is not met, a KeyError will be raised with an explanation of what needs to be configured.
 
 ### Adding a default value
 
-In some cases, you don't need to require each environment to set a variable explicitly.
-You might have a reasonable default value that can be overridden. You can specify a default
-value with the `:default` option:
+For some variables, you’ll want to include a default value in your code, and allow each
+environment to specify the variable only if the default needs to be overriden. You can
+accomplish this with the `:default` option:
 
 ```ruby
 ENV!.config do
@@ -79,10 +78,10 @@ end
 
 ### Adding a description
 
-When a new team members installs or deploys your project, they may run into a missing
+When a new team member installs or deploys your project, they may run into a missing
 environment variable error. It can save them a great deal of time to include documentation
-on the missing environment variable directly in the error that is raised. To accomplish this,
-provide a description (of any length) to the `use` method:
+along with the error that is raised. To accomplish this, provide a description (of any
+length) to the `use` method:
 
 ```ruby
 ENV!.config do
@@ -91,8 +90,8 @@ ENV!.config do
 end
 ```
 
-If someone installs or deploys the app and forgets to set the RAILS_SECRET_KEY_BASE variable in
-their environment, they will see these instructions immediately upon running the app.
+Now if someone installs or deploys the app without setting the RAILS_SECRET_KEY_BASE variable,
+they will see these instructions immediately upon running the app.
 
 ## Contributing
 
