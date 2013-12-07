@@ -1,6 +1,6 @@
-# WhENV
+# ENV!
 
-Whitelist your ENV
+Do a bang-up job managing your environment variables.
 
 TODO: Describe the whole point of this thing
 
@@ -8,7 +8,7 @@ TODO: Describe the whole point of this thing
 
 Add this line to your application's Gemfile:
 
-    gem 'wh_env'
+    gem 'env_bang'
 
 And then execute:
 
@@ -16,11 +16,11 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install wh_env
+    $ gem install env_bang
 
 ## Usage
 
-See [test/wh_env_test.rb](test/wh_env_test.rb)
+See [test/env_bang_test.rb](test/env_bang_test.rb)
 
 TODO: Write better instructions
 

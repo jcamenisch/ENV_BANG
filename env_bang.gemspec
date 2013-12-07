@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'wh_env/version'
+require 'env_bang/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "wh_env"
-  spec.version       = WhENV::VERSION
+  spec.name          = "env_bang"
+  spec.version       = ENV_BANG::VERSION
   spec.authors       = ["Jonathan Camenisch"]
   spec.email         = ["jonathan@camenisch.net"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Do a bang-up job managing your environment variables}
+  spec.description   = %q{}
   spec.homepage      = ""
   spec.license       = "MIT"
 

@@ -1,6 +1,6 @@
-require "wh_env/version"
+require "env_bang/version"
 
-class WhENV
+class ENV_BANG
   class << self
     def config(&block)
       instance_eval(&block)
@@ -27,7 +27,7 @@ class WhENV
     end
 
     def [](var)
-      raise KeyError.new("WhENV is not configured to use var #{var}") unless used_vars.include?(var)
+      raise KeyError.new("ENV_BANG is not configured to use var #{var}") unless used_vars.include?(var)
 
       ENV[var]
     end
@@ -36,4 +36,8 @@ class WhENV
       ENV.send(method, *args, &block)
     end
   end
+end
+
+def ENV!
+  ENV_BANG
 end
