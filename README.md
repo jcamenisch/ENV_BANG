@@ -1,4 +1,4 @@
-# ENV!
+# ENV! [![Build Status](https://secure.travis-ci.org/jcamenisch/ENV_BANG.png?branch=master)](https://travis-ci.org/jcamenisch/ENV_BANG)
 
 Do a bang-up job managing your environment variables.
 
