@@ -15,7 +15,7 @@ class ENV_BANG
       end
 
       # Store the variable, converted to requested class
-      klass = :"#{options.fetch(:class, String)}"
+      klass = :"#{options.fetch(:class, :StringUnlessEmpty)}"
       vars[var] = Classes.cast ENV[var], klass, options
     end
 
@@ -52,8 +52,16 @@ class ENV_BANG
       end
 
       def Array(value, options)
-        klass = options.fetch(:of, String)
+        klass = options.fetch(:of, :StringUnlessEmpty)
         value.split(',').map { |value| cast(value.strip, klass) }
+      end
+
+      def Symbol(value, options)
+        value.to_sym
+      end
+
+      def StringUnlessEmpty(value, options)
+        value.length > 0 ? value : nil
       end
 
       # Delegate methods like Integer(), Float(), String(), etc. to the Kernel module

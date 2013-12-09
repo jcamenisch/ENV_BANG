@@ -59,6 +59,13 @@ describe ENV_BANG do
       ENV!['INTEGER'].must_equal integer.to_i
     end
 
+    it "Casts Symbols" do
+      ENV['SYMBOL'] = 'symbol'
+      ENV!.use 'SYMBOL', class: Symbol
+
+      ENV!['SYMBOL'].must_equal :symbol
+    end
+
     it "Casts Floats" do
       float = floats.sample
       ENV['FLOAT'] = float
@@ -101,6 +108,20 @@ describe ENV_BANG do
       ENV!.use 'FALSE', class: :boolean
 
       ENV!['FALSE'].must_equal false
+    end
+
+    it "converts an empty string to nil by default" do
+      ENV['NIL'] = ''
+      ENV!.use 'NIL'
+
+      ENV!['NIL'].must_be_nil
+    end
+
+    it "leaves an empty string as String if specified" do
+      ENV['EMPTY_STRING'] = ''
+      ENV!.use 'EMPTY_STRING', class: String
+
+      ENV!['EMPTY_STRING'].must_equal ''
     end
   end
 end
