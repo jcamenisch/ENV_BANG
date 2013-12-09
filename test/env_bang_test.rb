@@ -96,7 +96,7 @@ describe ENV_BANG do
       ENV!['FLOATS'].must_equal floats.map(&:to_f)
     end
 
-    it "Casts false" do
+    it "Casts true" do
       ENV['TRUE'] = truthy_values.sample
       ENV!.use 'TRUE', class: :boolean
 
@@ -110,18 +110,18 @@ describe ENV_BANG do
       ENV!['FALSE'].must_equal false
     end
 
-    it "converts an empty string to nil by default" do
-      ENV['NIL'] = ''
-      ENV!.use 'NIL'
+    it "converts falsey or empty string to false by default" do
+      ENV['FALSE'] = falsey_values.sample
+      ENV!.use 'FALSE'
 
-      ENV!['NIL'].must_be_nil
+      ENV!['FALSE'].must_equal false
     end
 
-    it "leaves an empty string as String if specified" do
-      ENV['EMPTY_STRING'] = ''
-      ENV!.use 'EMPTY_STRING', class: String
+    it "leaves falsey string as string if specified" do
+      ENV['FALSE'] = falsey_values.sample
+      ENV!.use 'FALSE', class: String
 
-      ENV!['EMPTY_STRING'].must_equal ''
+      ENV!['FALSE'].class.must_equal String
     end
   end
 end
