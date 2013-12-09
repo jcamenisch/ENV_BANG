@@ -44,4 +44,63 @@ describe ENV_BANG do
     end
     ENV!['PRESENT'].must_equal 'present in environment'
   end
+
+  describe "Type casting" do
+    let(:truthy_values) { %w[true on yes yo yup anything] }
+    let(:falsey_values) { %w[false no off disable disabled 0] << '' }
+    let(:integers) { %w[0 1 10 -42 -55] }
+    let(:floats) { %w[0.1 1.3 10 -42.3 -55] }
+
+    it "Casts Integers" do
+      integer = integers.sample
+      ENV['INTEGER'] = integer
+      ENV!.use 'INTEGER', class: Integer
+
+      ENV!['INTEGER'].must_equal integer.to_i
+    end
+
+    it "Casts Floats" do
+      float = floats.sample
+      ENV['FLOAT'] = float
+      ENV!.use 'FLOAT', class: Float
+
+      ENV!['FLOAT'].must_equal float.to_f
+      ENV!['FLOAT'].class.must_equal Float
+    end
+
+    it "Casts Arrays" do
+      ENV['ARRAY'] = 'one,two , three, four'
+      ENV!.use 'ARRAY', class: Array
+
+      ENV!['ARRAY'].must_equal %w[one two three four]
+    end
+
+    it "Casts Arrays of Integers" do
+      ENV['INTEGERS'] = integers.join(',')
+      ENV!.use 'INTEGERS', class: Array, of: Integer
+
+      ENV!['INTEGERS'].must_equal integers.map(&:to_i)
+    end
+
+    it "Casts Arrays of Floats" do
+      ENV['FLOATS'] = floats.join(',')
+      ENV!.use 'FLOATS', class: Array, of: Float
+
+      ENV!['FLOATS'].must_equal floats.map(&:to_f)
+    end
+
+    it "Casts false" do
+      ENV['TRUE'] = truthy_values.sample
+      ENV!.use 'TRUE', class: :boolean
+
+      ENV!['TRUE'].must_equal true
+    end
+
+    it "Casts false" do
+      ENV['FALSE'] = falsey_values.sample
+      ENV!.use 'FALSE', class: :boolean
+
+      ENV!['FALSE'].must_equal false
+    end
+  end
 end
