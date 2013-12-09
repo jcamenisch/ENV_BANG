@@ -14,9 +14,7 @@ class ENV_BANG
         ENV[var] = options.fetch(:default) { formatted_error(var, description) }.to_s
       end
 
-      # Store the variable, converted to requested class
-      klass = :"#{options.fetch(:class, :StringUnlessFalsey)}"
-      vars[var] = Classes.cast ENV[var], klass, options
+      vars[var] = options
     end
 
     def formatted_error(var, description)
@@ -33,7 +31,7 @@ class ENV_BANG
     def [](var)
       raise KeyError.new("ENV_BANG is not configured to use var #{var}") unless vars.has_key?(var)
 
-      vars[var]
+      Classes.cast ENV[var], vars[var]
     end
 
     def method_missing(method, *args, &block)
@@ -43,8 +41,8 @@ class ENV_BANG
 
   module Classes
     class << self
-      def cast(value, klass, options = {})
-        public_send(:"#{klass}", value, options)
+      def cast(value, options = {})
+        public_send(:"#{options.fetch(:class, :StringUnlessFalsey)}", value, options)
       end
 
       def boolean(value, options)
@@ -52,8 +50,9 @@ class ENV_BANG
       end
 
       def Array(value, options)
-        klass = options.fetch(:of, :StringUnlessFalsey)
-        value.split(',').map { |value| cast(value.strip, klass) }
+        options.delete(:class)
+        options[:class] = options[:of] if options[:of]
+        value.split(',').map { |value| cast(value.strip, options) }
       end
 
       def Symbol(value, options)
