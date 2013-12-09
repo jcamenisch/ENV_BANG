@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gemspec
+gemspec name: 'env_bang'
 
 group :metrics do
   gem 'coveralls', require: false
