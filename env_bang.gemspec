@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jonathan Camenisch"]
   spec.email         = ["jonathan@camenisch.net"]
   spec.summary       = %q{Do a bang-up job managing your environment variables}
-  spec.description   = %q{}
-  spec.homepage      = ""
+  spec.description   = %q{ENV! provides a thin wrapper around ENV to encourage central, self-documenting configuration and helpful error message.}
+  spec.homepage      = "https://github.com/jcamenisch/ENV_BANG"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
