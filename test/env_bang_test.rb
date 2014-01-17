@@ -16,17 +16,6 @@ describe ENV_BANG do
     }.must_raise KeyError
   end
 
-  it "Includes provided description in error message" do
-    ENV.delete('NOT_PRESENT')
-
-    e = proc {
-      ENV!.config do
-        use 'NOT_PRESENT', 'You need a NOT_PRESENT var in your ENV'
-      end
-    }.must_raise(KeyError)
-    e.message.must_include 'You need a NOT_PRESENT var in your ENV'
-  end
-
   it "Uses provided default value if ENV var not already present" do
     ENV.delete('WASNT_PRESENT')
 
@@ -122,6 +111,40 @@ describe ENV_BANG do
       ENV!.use 'FALSE', class: String
 
       ENV!['FALSE'].class.must_equal String
+    end
+  end
+
+  describe "Formatting" do
+    it "Includes provided description in error message" do
+      ENV.delete('NOT_PRESENT')
+
+      e = proc {
+        ENV!.config do
+          use 'NOT_PRESENT', 'You need a NOT_PRESENT var in your ENV'
+        end
+      }.must_raise(KeyError)
+      e.message.must_include 'You need a NOT_PRESENT var in your ENV'
+    end
+
+    it "Removes indentation from provided descriptions" do
+      ENV.delete('NOT_PRESENT')
+
+      e = proc {
+        ENV!.config do
+          use 'NOT_PRESENT', <<-DESC
+            This multiline description
+              has a lot of indentation
+                varying from line to line
+            like so
+          DESC
+        end
+      }.must_raise(KeyError)
+      e.message.must_include <<-UNINDENTED
+    This multiline description
+      has a lot of indentation
+        varying from line to line
+    like so
+      UNINDENTED
     end
   end
 end

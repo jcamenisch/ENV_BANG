@@ -1,4 +1,5 @@
 require "env_bang/version"
+require "env_bang/formatter"
 
 class ENV_BANG
   class << self
@@ -11,17 +12,14 @@ class ENV_BANG
       options = args.last.is_a?(Hash) ? args.pop : {}
 
       unless ENV.has_key?(var)
-        ENV[var] = options.fetch(:default) { formatted_error(var, description) }.to_s
+        ENV[var] = options.fetch(:default) { raise_formatted_error(var, description) }.to_s
       end
 
       vars[var] = options
     end
 
-    def formatted_error(var, description)
-      message = "Missing required environment variable: #{var}"
-      message << "\n#{description}" if description
-      indent = '    '
-      raise KeyError.new "\n#{indent}#{message.gsub "\n", "\n#{indent}"}\n"
+    def raise_formatted_error(var, description) 
+      raise KeyError.new Formatter.formatted_error(var, description)
     end
 
     def vars
