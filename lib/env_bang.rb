@@ -7,6 +7,10 @@ class ENV_BANG
       instance_eval(&block)
     end
 
+    def clear_config
+      @vars = {}
+    end
+
     def use(var, *args)
       description = args.first.is_a?(String) && args.shift
       options = args.last.is_a?(Hash) ? args.pop : {}
@@ -24,6 +28,14 @@ class ENV_BANG
 
     def vars
       @vars ||= {}
+    end
+
+    def keys
+      vars.keys
+    end
+
+    def values
+      keys.map { |k| self[k] }
     end
 
     def [](var)

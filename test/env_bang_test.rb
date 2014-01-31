@@ -1,6 +1,10 @@
 require_relative 'test_helper'
 
 describe ENV_BANG do
+  before do
+    ENV!.clear_config
+  end
+
   it "Raises exception if unconfigured ENV var requested" do
     ENV['UNCONFIGURED'] = 'unconfigured'
     proc { ENV!['UNCONFIGURED'] }.must_raise KeyError
@@ -111,6 +115,24 @@ describe ENV_BANG do
       ENV!.use 'FALSE', class: String
 
       ENV!['FALSE'].class.must_equal String
+    end
+
+    it "provides configured keys" do
+      ENV['VAR1'] = 'something'
+      ENV['VAR2'] = 'something else'
+      ENV!.use 'VAR1'
+      ENV!.use 'VAR2'
+
+      ENV!.keys.must_equal %w[VAR1 VAR2]
+    end
+
+    it "provides configured values" do
+      ENV['VAR1'] = 'something'
+      ENV['VAR2'] = 'something else'
+      ENV!.use 'VAR1'
+      ENV!.use 'VAR2'
+
+      ENV!.values.must_equal %w[something something\ else]
     end
   end
 
