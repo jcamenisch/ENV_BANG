@@ -12,6 +12,7 @@ class ENV_BANG
     end
 
     def use(var, *args)
+      var = var.to_s
       description = args.first.is_a?(String) && args.shift
       options = args.last.is_a?(Hash) ? args.pop : {}
 
@@ -39,6 +40,7 @@ class ENV_BANG
     end
 
     def [](var)
+      var = var.to_s
       raise KeyError.new("ENV_BANG is not configured to use var #{var}") unless vars.has_key?(var)
 
       Classes.cast ENV[var], vars[var]
