@@ -2,7 +2,8 @@ require_relative 'test_helper'
 
 describe ENV_BANG do
   before do
-    ENV!.clear_config
+    ENV_BANG.instance_eval { @vars = nil }
+    ENV_BANG::Classes.default_class = nil
   end
 
   it "Raises exception if unconfigured ENV var requested" do

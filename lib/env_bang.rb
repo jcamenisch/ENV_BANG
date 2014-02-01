@@ -7,11 +7,6 @@ class ENV_BANG
       instance_eval(&block)
     end
 
-    def clear_config
-      @vars = {}
-      default_class nil
-    end
-
     def use(var, *args)
       var = var.to_s
       description = args.first.is_a?(String) && args.shift
