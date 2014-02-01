@@ -117,6 +117,31 @@ describe ENV_BANG do
       ENV!['FALSE'].class.must_equal String
     end
 
+    it "allows default class to be overridden" do
+      ENV!.config { default_class = String }
+      ENV['FALSE'] = falsey_values.sample
+      ENV!.use 'FALSE', class: String
+
+      ENV!['FALSE'].class.must_equal String
+    end
+
+    it "allows addition of custom types" do
+      require 'set'
+
+      ENV['NUMBER_SET'] = '1,3,5,7,9'
+      ENV!.config do
+        add_class Set do |value, options|
+          Set.new self.Array(value, options || {})
+        end
+
+        use :NUMBER_SET, class: Set, of: Integer
+      end
+
+      ENV!['NUMBER_SET'].must_equal Set.new [1, 3, 5, 7, 9]
+    end
+  end
+
+  describe "Hash-like behavior" do
     it "provides configured keys" do
       ENV['VAR1'] = 'something'
       ENV['VAR2'] = 'something else'

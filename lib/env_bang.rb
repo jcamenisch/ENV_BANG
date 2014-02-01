@@ -49,12 +49,30 @@ class ENV_BANG
     def method_missing(method, *args, &block)
       ENV.send(method, *args, &block)
     end
+
+    def add_class(klass, &block)
+      Classes.send :define_singleton_method, klass.to_s, &block
+    end
+
+    def default_class
+      Classes.default_class
+    end
+
+    def default_class=(value)
+      Classes.default_class = value
+    end
   end
 
   module Classes
     class << self
+      attr_writer :default_class
+
+      def default_class
+        @default_class ||= :StringUnlessFalsey
+      end
+
       def cast(value, options = {})
-        public_send(:"#{options.fetch(:class, :StringUnlessFalsey)}", value, options)
+        public_send(:"#{options.fetch(:class, default_class)}", value, options)
       end
 
       def boolean(value, options)
