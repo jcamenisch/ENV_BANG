@@ -27,7 +27,7 @@ gem 'env_bang'
 Or for Rails apps, use `env_bang-rails` instead for more convenience:
 
 ```ruby
-gem 'env_bang-rails
+gem 'env_bang-rails'
 ```
 
 And then execute:
@@ -133,8 +133,9 @@ set
 
 ```ruby
 ENV!.config do
-  Classes.default_class = String
+  default_class = String
 end
+```
 
 #### Custom type conversion
 
