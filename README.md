@@ -133,7 +133,7 @@ set
 
 ```ruby
 ENV!.config do
-  default_class = String
+  default_class String
 end
 ```
 

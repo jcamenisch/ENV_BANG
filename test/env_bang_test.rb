@@ -118,7 +118,8 @@ describe ENV_BANG do
     end
 
     it "allows default class to be overridden" do
-      ENV!.config { default_class = String }
+      ENV!.default_class.must_equal :StringUnlessFalsey
+      ENV!.config { default_class String }
       ENV['FALSE'] = falsey_values.sample
       ENV!.use 'FALSE', class: String
 

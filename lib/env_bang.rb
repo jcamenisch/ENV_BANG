@@ -9,6 +9,7 @@ class ENV_BANG
 
     def clear_config
       @vars = {}
+      default_class nil
     end
 
     def use(var, *args)
@@ -54,12 +55,12 @@ class ENV_BANG
       Classes.send :define_singleton_method, klass.to_s, &block
     end
 
-    def default_class
-      Classes.default_class
-    end
-
-    def default_class=(value)
-      Classes.default_class = value
+    def default_class(*args)
+      if args.any?
+        Classes.default_class = args.first
+      else
+        Classes.default_class
+      end
     end
   end
 
