@@ -1,4 +1,5 @@
 require "env_bang/version"
+require "env_bang/classes"
 require "env_bang/formatter"
 
 class ENV_BANG
@@ -55,43 +56,6 @@ class ENV_BANG
         Classes.default_class = args.first
       else
         Classes.default_class
-      end
-    end
-  end
-
-  module Classes
-    class << self
-      attr_writer :default_class
-
-      def default_class
-        @default_class ||= :StringUnlessFalsey
-      end
-
-      def cast(value, options = {})
-        public_send(:"#{options.fetch(:class, default_class)}", value, options)
-      end
-
-      def boolean(value, options)
-        !(value =~ /^(|0|disabled?|false|no|off)$/i)
-      end
-
-      def Array(value, options)
-        options.delete(:class)
-        options[:class] = options[:of] if options[:of]
-        value.split(',').map { |value| cast(value.strip, options) }
-      end
-
-      def Symbol(value, options)
-        value.to_sym
-      end
-
-      def StringUnlessFalsey(value, options)
-        boolean(value, options) && value
-      end
-
-      # Delegate methods like Integer(), Float(), String(), etc. to the Kernel module
-      def method_missing(klass, value, options, &block)
-        Kernel.send(klass, value)
       end
     end
   end
