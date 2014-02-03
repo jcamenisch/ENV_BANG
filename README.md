@@ -56,9 +56,6 @@ ENV!.config do
 end
 ```
 
-A single variable can also be configured with `ENV!.use MY_VAR`, but the `ENV!.config` block
-will typically be a cleaner place for all the variables for your app.
-
 Once a variable is specified with the `use` method, access it with
 
 ```ruby
@@ -126,7 +123,7 @@ end
 #### Default type conversion behavior
 
 If you don’t specify a `:class` option for a variable, ENV! defaults to a special
-type conversion called `:StringUnlessFalsey`. This coversion returns a string, unless
+type conversion called `:StringUnlessFalsey`. This conversion returns a string, unless
 the value is a "falsey" string ('false', 'no', 'off', '0', 'disable', or 'disabled').
 To turn off this magic for one variable, pass in `class: String`. To disable it globally,
 set
@@ -167,6 +164,39 @@ end
 ENV!['NUMBER_SET']
 #=> #<Set: {1, 3, 5, 7, 9}>
 ```
+
+## Implementation Notes
+
+1. ENV! is simply a method that returns ENV_BANG. In certain contexts
+   (like defining a class), the exclamation mark notation is not allowed,
+   so we use an alias to get this shorthand.
+
+2. Any method that can be run within an `ENV!.config` block can also be run
+   as a method directly on `ENV!`. For instance, instead of
+
+   ```ruby
+   ENV!.config do
+      add_class Set do
+        ...
+      end
+
+      use :NUMBER_SET, class: Set
+   end
+   ```
+
+   It would also work to run
+
+   ```ruby
+   ENV!.add_class Set do
+      ...
+   end
+
+   ENV!.use :NUMBER_SET, class: Set
+   ```
+   
+   While the `config` block is designed to provide a cleaner configuration
+   file, calling the methods directly can occasionally be handy, such as when
+   trying things out in an IRB/Pry session.
 
 ## Contributing
 
