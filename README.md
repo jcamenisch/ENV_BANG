@@ -69,7 +69,7 @@ is not met, a KeyError will be raised with an explanation of what needs to be co
 ### Adding a default value
 
 For some variables, you’ll want to include a default value in your code, and allow each
-environment to ommit the variable for default behavios. You can accomplish this with the
+environment to ommit the variable for default behaviors. You can accomplish this with the
 `:default` option:
 
 ```ruby
