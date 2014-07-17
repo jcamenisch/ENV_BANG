@@ -16,9 +16,9 @@ class ENV_BANG
       end
 
       def Array(value, options)
-        options.delete(:class)
-        options[:class] = options[:of] if options[:of]
-        value.split(',').map { |value| cast(value.strip, options) }
+        values = value.split(',').map { |value| value.strip }
+        values.map! { |value| cast(value, class: options[:of]) } if options[:of]
+        values
       end
 
       def Symbol(value, options)
