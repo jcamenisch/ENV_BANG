@@ -90,6 +90,15 @@ describe ENV_BANG do
       ENV!['FLOATS'].must_equal floats.map(&:to_f)
     end
 
+    it "regression: Casting Array always returns Array" do
+      ENV['ARRAY'] = 'one,two , three, four'
+      ENV!.use 'ARRAY', class: Array
+
+      2.times do
+        ENV!['ARRAY'].must_equal %w[one two three four]
+      end
+    end
+
     it "Casts true" do
       ENV['TRUE'] = truthy_values.sample
       ENV!.use 'TRUE', class: :boolean
