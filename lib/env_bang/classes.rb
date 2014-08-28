@@ -17,7 +17,7 @@ class ENV_BANG
 
       def Array(value, options)
         item_options = options.merge(class: options.fetch(:of, default_class))
-        value.split(',').map { |value| cast(value.strip, item_options) }
+        value.split(',').map { |v| cast(v.strip, item_options) }
       end
 
       def Symbol(value, options)
