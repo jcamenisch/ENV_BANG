@@ -1,12 +1,12 @@
+# ENV! 
+
+Do a bang-up job managing your environment variables.
+
 [![Gem Version](https://badge.fury.io/rb/env_bang.png)](https://rubygems.org/gems/env_bang)
 [![Build Status](https://secure.travis-ci.org/jcamenisch/ENV_BANG.png?branch=master)](https://travis-ci.org/jcamenisch/ENV_BANG)
 [![Dependency Status](https://gemnasium.com/jcamenisch/ENV_BANG.png)](https://gemnasium.com/jcamenisch/ENV_BANG)
 [![Code Climate](https://codeclimate.com/github/jcamenisch/ENV_BANG.png)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
 [![Coverage Status](https://coveralls.io/repos/jcamenisch/ENV_BANG/badge.png?branch=master)](https://coveralls.io/r/jcamenisch/ENV_BANG)
-
-# ENV! 
-
-Do a bang-up job managing your environment variables.
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
 
