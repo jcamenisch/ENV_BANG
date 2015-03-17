@@ -2,11 +2,11 @@
 
 Do a bang-up job managing your environment variables.
 
-[![Gem Version](https://badge.fury.io/rb/env_bang.png)](https://rubygems.org/gems/env_bang)
-[![Build Status](https://secure.travis-ci.org/jcamenisch/ENV_BANG.png?branch=master)](https://travis-ci.org/jcamenisch/ENV_BANG)
-[![Dependency Status](https://gemnasium.com/jcamenisch/ENV_BANG.png)](https://gemnasium.com/jcamenisch/ENV_BANG)
-[![Code Climate](https://codeclimate.com/github/jcamenisch/ENV_BANG.png)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
-[![Coverage Status](https://coveralls.io/repos/jcamenisch/ENV_BANG/badge.png?branch=master)](https://coveralls.io/r/jcamenisch/ENV_BANG)
+[![Gem Version](http://img.shields.io/gem/v/env_bang.svg?style=flat)](https://rubygems.org/gems/env_bang)
+[![Build Status](http://img.shields.io/travis/jcamenisch/ENV_BANG/master.svg?style=flat)](https://travis-ci.org/jcamenisch/ENV_BANG)
+[![Dependency Status](https://img.shields.io/gemnasium/jcamenisch/ENV_BANG.svg?style=flat)](https://gemnasium.com/jcamenisch/ENV_BANG)
+[![Code Climate](http://img.shields.io/codeclimate/github/jcamenisch/ENV_BANG.svg?style=flat)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
+[![Coverage Status](https://img.shields.io/coveralls/jcamenisch/ENV_BANG/master.svg?style=flat)](https://coveralls.io/r/jcamenisch/ENV_BANG)
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
 
