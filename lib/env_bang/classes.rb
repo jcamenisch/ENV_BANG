@@ -20,6 +20,17 @@ class ENV_BANG
         value.split(',').map { |v| cast(v.strip, item_options) }
       end
 
+      def Hash(value, options)
+        key_options   = options.merge(class: options.fetch(:keys, Symbol))
+        value_options = options.merge(class: options.fetch(:of, default_class))
+        {}.tap do |h|
+          value.split(',').each do |pair|
+            key, value = pair.split(':')
+            h[cast(key.strip, key_options)] = cast(value.strip, value_options)
+          end
+        end
+      end
+
       def Symbol(value, options)
         value.to_sym
       end

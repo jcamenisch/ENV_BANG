@@ -108,6 +108,7 @@ ENV!.config do
   use :MAIL_DELIVERY_METHOD, class: Symbol, default: :smtp
   use :DEFAULT_FRACTION,     class: Float
   use :ENABLE_SOUNDTRACK,    class: :boolean
+  use :PUPPETMASTERS,        class: Hash
 end
 ```
 
@@ -117,6 +118,14 @@ of a specific type of value, use the `:of` option:
 ```ruby
 ENV!.config do
   use :YEARS_OF_INTEREST, class: Array, of: Integer
+end
+```
+
+Hashes are split on commas (',') and key:value pairs are delimited by colon (':'). To get hashes of a specific type of value, use the `:of` option, and to use a different type for keys (default is `Symbol`), use the `:keys` option:
+
+```ruby
+ENV!.config do
+  use :BIRTHDAYS, class: Hash, of: Integer, keys: String
 end
 ```
 

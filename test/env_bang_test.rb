@@ -99,6 +99,27 @@ describe ENV_BANG do
       end
     end
 
+    it "Casts Hashes" do
+      ENV['HASH'] = 'one: two, three: four'
+      ENV!.use 'HASH', class: Hash
+
+      ENV!['HASH'].must_equal({one: 'two', three: 'four'})
+    end
+
+    it 'Casts Hashes of Integers' do
+      ENV['INT_HASH'] = 'one: 111, two: 222'
+      ENV!.use 'INT_HASH', class: Hash, of: Integer
+
+      ENV!['INT_HASH'].must_equal({one: 111, two: 222})
+    end
+
+    it 'Casts Hashes with String keys' do
+      ENV['STRKEY_HASH'] = 'one: two, three: four'
+      ENV!.use 'STRKEY_HASH', class: Hash, keys: String
+
+      ENV!['STRKEY_HASH'].must_equal({'one' => 'two', 'three' => 'four'})
+    end
+
     it "Casts true" do
       ENV['TRUE'] = truthy_values.sample
       ENV!.use 'TRUE', class: :boolean
