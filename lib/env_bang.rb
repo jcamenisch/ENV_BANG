@@ -21,7 +21,21 @@ class ENV_BANG
     end
 
     def raise_formatted_error(var, description) 
-      raise KeyError.new Formatter.formatted_error(var, description)
+      raise KeyError.new Formatter.formatted_error(var, description) unless disabled?
+    end
+
+    @disabled = false
+
+    def disable
+      @disabled = true
+    end
+
+    def disabled?
+      @disabled
+    end
+
+    def enable
+      @disabled = false
     end
 
     def vars

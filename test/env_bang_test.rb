@@ -193,6 +193,16 @@ describe ENV_BANG do
     end
   end
 
+  describe "Disabling" do
+      it "must not bang when disabled" do
+
+        ENV!.disable
+        ENV!.use 'LOL'
+        ENV!.enable
+
+      end
+  end
+
   describe "Formatting" do
     it "Includes provided description in error message" do
       ENV.delete('NOT_PRESENT')
