@@ -39,9 +39,32 @@ class ENV_BANG
         boolean(value, options) && value
       end
 
-      # Delegate methods like Integer(), Float(), String(), etc. to the Kernel module
-      def method_missing(klass, value, options, &block)
-        Kernel.send(klass, value)
+      def Integer(value, options)
+        Kernel.Integer(value)
+      end
+
+      def Float(value, options)
+        Kernel.Float(value)
+      end
+
+      def String(value, options)
+        Kernel.String(value)
+      end
+
+      def Rational(value, options)
+        Kernel.Rational(value)
+      end
+
+      def Complex(value, options)
+        Kernel.Complex(value)
+      end
+
+      def Pathname(value, options)
+        Kernel.Pathname(value)
+      end
+
+      def URI(value, options)
+        Kernel.URI(value)
       end
     end
   end
