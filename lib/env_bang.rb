@@ -21,7 +21,9 @@ class ENV_BANG
     end
 
     def raise_formatted_error(var, description)
-      raise KeyError.new Formatter.formatted_error(var, description)
+      e = KeyError.new(Formatter.formatted_error(var, description))
+      e.set_backtrace(caller[3..-1])
+      raise e
     end
 
     def vars
