@@ -2,11 +2,11 @@ class ENV_BANG
   module Formatter
     class << self
       def formatted_error(var, description)
-        indent 4, <<-EOS
+        indent(4, "
 
-  Missing required environment variable: #{var}#{ description and "\n" <<
-  unindent(description) }
-        EOS
+Missing required environment variable: #{var}#{description and "\n" <<
+unindent(description) }
+        ")
       end
 
       def unindent(string)
@@ -15,7 +15,7 @@ class ENV_BANG
       end
 
       def indent(width, string)
-        string.gsub "\n", "\n#{' ' * width}"
+        string.gsub("\n", "\n#{' ' * width}")
       end
     end
   end

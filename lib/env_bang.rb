@@ -10,7 +10,7 @@ class ENV_BANG
 
     def use(var, *args)
       var = var.to_s
-      description = args.first.is_a?(String) && args.shift
+      description = args.first.is_a?(String) ? args.shift : nil
       options = args.last.is_a?(Hash) ? args.pop : {}
 
       unless ENV.has_key?(var)
@@ -20,7 +20,7 @@ class ENV_BANG
       vars[var] = options
     end
 
-    def raise_formatted_error(var, description) 
+    def raise_formatted_error(var, description)
       raise KeyError.new Formatter.formatted_error(var, description)
     end
 
