@@ -120,6 +120,13 @@ describe ENV_BANG do
       ENV!['STRKEY_HASH'].must_equal({'one' => 'two', 'three' => 'four'})
     end
 
+    it 'Casts Hashes with alternate separators' do
+      ENV['ALT_HASH'] = 'one:two = three; four,five=six'
+      ENV!.use 'ALT_HASH', class: Hash, sep: ';', val_sep: '='
+
+      ENV!['ALT_HASH'].must_equal({:'one:two' => 'three', :'four,five' => 'six'})
+    end
+
     it "Casts true" do
       ENV['TRUE'] = truthy_values.sample
       ENV!.use 'TRUE', class: :boolean

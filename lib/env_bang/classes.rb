@@ -23,10 +23,13 @@ class ENV_BANG
       def Hash(value, options)
         key_options   = options.merge(class: options.fetch(:keys, Symbol))
         value_options = options.merge(class: options.fetch(:of, default_class))
+        sep = options.fetch(:sep, ',')
+        val_sep = options.fetch(:val_sep, ':')
+
         {}.tap do |h|
-          value.split(',').each do |pair|
-            key, value = pair.split(':', 2)
-            h[cast(key.strip, key_options)] = cast(value.strip, value_options)
+          value.split(sep).each do |pair|
+            key, value = pair.split(val_sep, 2)
+            h[cast(key.to_s.strip, key_options)] = cast(value.to_s.strip, value_options)
           end
         end
       end
