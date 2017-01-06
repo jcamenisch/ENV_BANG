@@ -21,6 +21,17 @@ describe ENV_BANG do
     }.must_raise KeyError
   end
 
+  it "Raises exception immediately if value is invalid for the required type" do
+    proc {
+      ENV['NOT_A_DATE'] = '2017-02-30'
+      ENV!.use 'NOT_A_DATE', class: Date
+    }.must_raise ArgumentError
+
+    proc {
+      ENV!.use 'NOT_A_DATE_DEFAULT', class: Date, default: '2017-02-31'
+    }.must_raise ArgumentError
+  end
+
   it "Uses provided default value if ENV var not already present" do
     ENV.delete('WASNT_PRESENT')
 
