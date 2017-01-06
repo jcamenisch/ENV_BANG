@@ -171,6 +171,61 @@ describe ENV_BANG do
 
       ENV!['NUMBER_SET'].must_equal Set.new [1, 3, 5, 7, 9]
     end
+
+    describe "Kernel casting delegators" do
+      it "casts Integers" do
+        ENV['A_INTEGER'] = '-123'
+        ENV!.use 'A_INTEGER', class: Integer
+
+        ENV!['A_INTEGER'].must_equal(-123)
+      end
+
+      it "casts Floats" do
+        ENV['A_FLOAT'] = '123.456'
+        ENV!.use 'A_FLOAT', class: Float
+
+        ENV!['A_FLOAT'].must_equal 123.456
+      end
+
+      it "casts Strings" do
+        ENV['A_STRING'] = 'What do I write here?'
+        ENV!.use 'A_STRING', class: String
+        ENV!['A_STRING'].must_equal 'What do I write here?'
+      end
+
+      it "casts Rationals" do
+        ENV['A_RATIONAL'] = '3/32'
+        ENV!.use 'A_RATIONAL', class: Rational
+
+        ENV!['A_RATIONAL'].class.must_equal Rational
+        ENV!['A_RATIONAL'].must_equal 3.to_r/32
+        ENV!['A_RATIONAL'].to_s.must_equal '3/32'
+      end
+
+      it "casts Complexes" do
+        ENV['A_COMPLEX'] = '123+4i'
+        ENV!.use 'A_COMPLEX', class: Complex
+
+        ENV!['A_COMPLEX'].class.must_equal Complex
+        ENV!['A_COMPLEX'].to_s.must_equal '123+4i'
+      end
+
+      it "casts Pathnames" do
+        ENV['A_PATHNAME'] = '~/.git/config'
+        ENV!.use 'A_PATHNAME', class: Pathname
+
+        ENV!['A_PATHNAME'].class.must_equal Pathname
+        ENV!['A_PATHNAME'].to_s.must_equal '~/.git/config'
+      end
+
+      it "casts URIs" do
+        ENV['A_URI'] = 'http://www.example.com/path/to/nowhere'
+        ENV!.use 'A_URI', class: URI
+
+        ENV!['A_URI'].class.must_equal URI::HTTP
+        ENV!['A_URI'].to_s.must_equal 'http://www.example.com/path/to/nowhere'
+      end
+    end
   end
 
   describe "Hash-like behavior" do
