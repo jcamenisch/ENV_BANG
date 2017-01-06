@@ -69,6 +69,21 @@ class ENV_BANG
       def URI(value, options)
         Kernel.URI(value)
       end
+
+      def Date(value, options)
+        require 'date'
+        Date.parse(value)
+      end
+
+      def DateTime(value, options)
+        require 'date'
+        DateTime.parse(value)
+      end
+
+      def Time(value, options)
+        require 'time'
+        Time.parse(value)
+      end
     end
   end
 end
