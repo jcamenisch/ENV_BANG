@@ -155,6 +155,30 @@ describe ENV_BANG do
       ENV!['FALSE'].class.must_equal String
     end
 
+    it "casts Dates" do
+      ENV['A_DATE'] = '2005-05-05'
+      ENV!.use 'A_DATE', class: Date
+
+      ENV!['A_DATE'].class.must_equal Date
+      ENV!['A_DATE'].must_equal Date.new(2005, 5, 5)
+    end
+
+    it "casts DateTimes" do
+      ENV['A_DATETIME'] = '2005-05-05 5:05pm'
+      ENV!.use 'A_DATETIME', class: DateTime
+
+      ENV!['A_DATETIME'].class.must_equal DateTime
+      ENV!['A_DATETIME'].must_equal DateTime.new(2005, 5, 5, 17, 5)
+    end
+
+    it "casts Times" do
+      ENV['A_TIME'] = '2005-05-05 5:05pm'
+      ENV!.use 'A_TIME', class: Time
+
+      ENV!['A_TIME'].class.must_equal Time
+      ENV!['A_TIME'].must_equal Time.new(2005, 5, 5, 17, 5)
+    end
+
     it "allows default class to be overridden" do
       ENV!.default_class.must_equal :StringUnlessFalsey
       ENV!.config { default_class String }
