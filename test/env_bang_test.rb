@@ -100,10 +100,10 @@ describe ENV_BANG do
     end
 
     it "Casts Hashes" do
-      ENV['HASH'] = 'one: two, three: four'
+      ENV['HASH'] = 'one: two, three: http://four.com'
       ENV!.use 'HASH', class: Hash
 
-      ENV!['HASH'].must_equal({one: 'two', three: 'four'})
+      ENV!['HASH'].must_equal({one: 'two', three: 'http://four.com'})
     end
 
     it 'Casts Hashes of Integers' do

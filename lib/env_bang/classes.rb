@@ -25,7 +25,7 @@ class ENV_BANG
         value_options = options.merge(class: options.fetch(:of, default_class))
         {}.tap do |h|
           value.split(',').each do |pair|
-            key, value = pair.split(':')
+            key, value = pair.split(':', 2)
             h[cast(key.strip, key_options)] = cast(value.strip, value_options)
           end
         end
