@@ -18,6 +18,9 @@ class ENV_BANG
       end
 
       vars[var] = options
+
+      # Make sure reading/coercing the value works. If it's going to raise an error, raise it now.
+      self[var]
     end
 
     def raise_formatted_error(var, description)
