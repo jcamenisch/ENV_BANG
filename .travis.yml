@@ -1,4 +1,14 @@
 language: ruby
+dist: trusty
+
 rvm:
   - 2.0.0
-  - 2.3.0
+  - 2.3.3
+  - 2.4.0
+  - ruby-head
+  - rbx-3.69
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - rvm: rbx-3.69
