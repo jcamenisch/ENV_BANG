@@ -1,6 +1,7 @@
 require "env_bang/version"
 require "env_bang/classes"
 require "env_bang/formatter"
+require "dotenv"
 
 class ENV_BANG
   class << self
@@ -67,5 +68,6 @@ class ENV_BANG
 end
 
 def ENV!
+  Dotenv.load
   ENV_BANG
 end
