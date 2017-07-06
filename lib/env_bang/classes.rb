@@ -84,6 +84,10 @@ class ENV_BANG
         require 'time'
         Time.parse(value)
       end
+
+      def Regexp(value, options)
+        Regexp.new(value)
+      end
     end
   end
 end

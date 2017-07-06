@@ -190,6 +190,15 @@ describe ENV_BANG do
       ENV!['A_TIME'].must_equal Time.new(2005, 5, 5, 17, 5)
     end
 
+    it "casts Regexps" do
+      # Escaping backslashes is not without its pitfalls. Developer beware.
+      ENV['A_REGEX'] = '^(this|is|a|[^tes.*\|]t.\.\*/\\\)$'
+      ENV!.use 'A_REGEX', class: Regexp
+
+      ENV!['A_REGEX'].class.must_equal Regexp
+      ENV!['A_REGEX'].must_equal(/^(this|is|a|[^tes.*\|]t.\.\*\/\\)$/)
+    end
+
     it "allows default class to be overridden" do
       ENV!.default_class.must_equal :StringUnlessFalsey
       ENV!.config { default_class String }
