@@ -199,6 +199,40 @@ describe ENV_BANG do
       ENV!['A_REGEX'].must_equal(/^(this|is|a|[^tes.*\|]t.\.\*\/\\)$/)
     end
 
+    it "casts inclusive Ranges of Integers by default" do
+      ENV['A_RANGE'] = '1..100'
+      ENV!.use 'A_RANGE', class: Range
+
+      ENV!['A_RANGE'].class.must_equal Range
+      ENV!['A_RANGE'].must_equal 1..100
+    end
+
+    it "casts exclusive Ranges as directed" do
+      ENV['EXCLUSIVE_RANGE'] = '1..100'
+      ENV!.use 'EXCLUSIVE_RANGE', class: Range, exclusive: true
+
+      ENV!['EXCLUSIVE_RANGE'].must_equal 1...100
+
+      ENV['ANOTHER_EXCLUSIVE_RANGE'] = '1...100'
+      ENV!.use 'ANOTHER_EXCLUSIVE_RANGE', class: Range, exclusive: true
+
+      ENV!['ANOTHER_EXCLUSIVE_RANGE'].must_equal 1...100
+    end
+
+    it "casts Ranges of floats" do
+      ENV['FLOAT_RANGE'] = '1.5..100.7'
+      ENV!.use 'FLOAT_RANGE', class: Range, of: Float
+
+      ENV!['FLOAT_RANGE'].must_equal 1.5..100.7
+    end
+
+    it "casts Ranges of strings" do
+      ENV['FLOAT_RANGE'] = 'az..za'
+      ENV!.use 'FLOAT_RANGE', class: Range, of: String
+
+      ENV!['FLOAT_RANGE'].must_equal 'az'..'za'
+    end
+
     it "allows default class to be overridden" do
       ENV!.default_class.must_equal :StringUnlessFalsey
       ENV!.config { default_class String }

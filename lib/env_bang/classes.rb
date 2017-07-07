@@ -85,6 +85,28 @@ class ENV_BANG
         Time.parse(value)
       end
 
+      def Range(value, options = {})
+        beginning, ending = value.split('...')
+        if beginning && ending
+          options[:exclusive] = true unless options.has_key?(:exclusive)
+        else
+          beginning, ending = value.split('..')
+        end
+        unless beginning && ending
+          raise ArgumentError.new("Range '#{value}' cannot be parsed as a range. Must be in the form <start>..<end> or <start>...<end>")
+        end
+
+        options[:of] ||= Integer
+        beginning = cast(beginning, class: options[:of])
+        ending    = cast(ending, class: options[:of])
+
+        if options[:exclusive]
+          beginning...ending
+        else
+          beginning..ending
+        end
+      end
+
       def Regexp(value, options)
         Regexp.new(value)
       end
