@@ -3,7 +3,6 @@ require 'coveralls'
 
 require 'minitest/autorun'
 require 'minitest/spec'
-require 'minitest/pride'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,

@@ -71,17 +71,14 @@ class ENV_BANG
       end
 
       def Date(value, options)
-        require 'date'
         Date.parse(value)
       end
 
       def DateTime(value, options)
-        require 'date'
         DateTime.parse(value)
       end
 
       def Time(value, options)
-        require 'time'
         Time.parse(value)
       end
 
