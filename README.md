@@ -4,7 +4,7 @@ Do a bang-up job managing your environment variables.
 
 [![Gem Version](https://img.shields.io/gem/v/env_bang.svg?style=flat)](https://rubygems.org/gems/env_bang)
 [![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/master.svg?style=flat)](https://travis-ci.org/jcamenisch/ENV_BANG)
-[![Code Climate](https://img.shields.io/codeclimate/github/jcamenisch/ENV_BANG.svg?style=flat)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
+[![Code Climate](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 [![Coverage Status](https://img.shields.io/coveralls/jcamenisch/ENV_BANG/master.svg?style=flat)](https://coveralls.io/r/jcamenisch/ENV_BANG)
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
