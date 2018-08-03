@@ -1,10 +1,10 @@
-# ENV! 
+# ENV!
 
 Do a bang-up job managing your environment variables.
 
 [![Gem Version](https://img.shields.io/gem/v/env_bang.svg?style=flat)](https://rubygems.org/gems/env_bang)
 [![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/master.svg?style=flat)](https://travis-ci.org/jcamenisch/ENV_BANG)
-[![Code Climate](https://img.shields.io/codeclimate/github/jcamenisch/ENV_BANG.svg?style=flat)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
+[![Maintainability](https://api.codeclimate.com/v1/badges/58ba2167873ed46687f9/maintainability)](https://codeclimate.com/github/jcamenisch/ENV_BANG/maintainability)
 [![Coverage Status](https://img.shields.io/coveralls/jcamenisch/ENV_BANG/master.svg?style=flat)](https://coveralls.io/r/jcamenisch/ENV_BANG)
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
@@ -201,7 +201,7 @@ ENV!['NUMBER_SET']
 
    ENV!.use :NUMBER_SET, class: Set
    ```
-   
+
    While the `config` block is designed to provide a cleaner configuration
    file, calling the methods directly can occasionally be handy, such as when
    trying things out in an IRB/Pry session.
