@@ -15,7 +15,7 @@ class ENV_BANG
     end
 
     config.before_configuration do
-      if File.exists?(env_rb_file)
+      if File.exist?(env_rb_file)
         load env_rb_file
       else
         warn("ENV! could not find your environment variable configuration. Please create #{env_rb_file} to set up environment variables at Rails boot.")
