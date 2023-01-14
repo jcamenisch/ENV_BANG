@@ -2,10 +2,10 @@
 
 Do a bang-up job managing your environment variables.
 
-[![Gem Version](https://img.shields.io/gem/v/env_bang.svg?style=flat)](https://rubygems.org/gems/env_bang)
-[![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/master.svg?style=flat)](https://travis-ci.org/jcamenisch/ENV_BANG)
-[![Maintainability](https://api.codeclimate.com/v1/badges/58ba2167873ed46687f9/maintainability)](https://codeclimate.com/github/jcamenisch/ENV_BANG/maintainability)
-[![Coverage Status](https://img.shields.io/coveralls/jcamenisch/ENV_BANG/master.svg?style=flat)](https://coveralls.io/r/jcamenisch/ENV_BANG)
+[![Gem Version](https://img.shields.io/gem/v/env_bang?logo=rubygems)](https://rubygems.org/gems/env_bang)
+[![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/main.svg?logo=travis)](https://app.travis-ci.com/github/jcamenisch/ENV_BANG)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/jcamenisch/ENV_BANG?logo=codeclimate)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
+[![Coverage Status](https://img.shields.io/coverallsCoverage/github/jcamenisch/ENV_BANG?logo=coveralls)](https://coveralls.io/r/jcamenisch/ENV_BANG)
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
 
