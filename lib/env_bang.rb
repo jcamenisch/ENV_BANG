@@ -146,56 +146,6 @@ class ENV_BANG
     def values_at(*keys)
       to_h.values_at(*keys)
     end
-
-    ##########################################################
-    # Implement Hash-like write methods                      #
-    # These must dump to the underlying ENV data structure--
-    # if the key is allowed by configuration
-    #
-    # TODO: Test & implement the following
-    #
-    # Note write capability will require each class adapter to be a
-    # serializer with load & dump methods.
-    ##########################################################
-
-    #def replace
-    #end
-
-    #def clear
-    #end
-
-    #def shift
-    #end
-
-    #def select!
-    #end
-
-    #def filter!
-    #end
-
-    #def keep_if
-    #end
-
-    #def delete_if
-    #end
-
-    #def reject!
-    #end
-
-    #def delete
-    #end
-
-    #def rehash
-    #end
-
-    #def store
-    #end
-
-    #def update
-    #end
-
-    #def merge!
-    #end
   end
 end
 
