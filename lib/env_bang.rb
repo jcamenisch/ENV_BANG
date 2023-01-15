@@ -4,6 +4,8 @@ require "env_bang/formatter"
 
 class ENV_BANG
   class << self
+    include Enumerable
+
     def config(&block)
       instance_eval(&block)
     end
@@ -69,6 +71,10 @@ class ENV_BANG
     ############################
     def to_h
       keys.map { |k| [k, self[k]] }.to_h
+    end
+
+    def each(&block)
+      to_h.each(&block)
     end
   end
 end

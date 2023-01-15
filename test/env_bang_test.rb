@@ -396,5 +396,25 @@ describe ENV_BANG do
       h['A'] = 'changed'
       ENV!['A'].must_equal 'A'
     end
+
+    it "returns an Array representation of the hash too" do
+      ENV!.to_a.must_equal [
+        ['ONE' , 1],
+        ['A', 'A'],
+        ['INT_HASH', { one: 1, two: 2 }],
+        ['FLOAT', 1.234],
+      ]
+    end
+
+    it "implements other Enumerable methods too" do
+      ENV!.each.to_a.must_equal [
+        ['ONE' , 1],
+        ['A', 'A'],
+        ['INT_HASH', { one: 1, two: 2 }],
+        ['FLOAT', 1.234],
+      ]
+
+      ENV!.to_enum.to_a.must_equal ENV!.to_a
+    end
   end
 end
