@@ -438,6 +438,15 @@ describe ENV_BANG do
       ENV!.rassoc(1).must_equal ['ONE', 1]
     end
 
+    it "implements .fetch correctly" do
+      ENV!.fetch('ONE').must_equal 1
+      proc {
+        ENV!.fetch('TWO')
+      }.must_raise KeyError
+      ENV!.fetch('TWO', 2).must_equal 2
+      ENV!.fetch('TWO') { 22 }.must_equal 22
+    end
+
     it "implements .invert correctly" do
       ENV!.invert.must_equal({
         1 => 'ONE',

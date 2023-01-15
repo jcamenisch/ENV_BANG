@@ -105,9 +105,9 @@ class ENV_BANG
     #  to_h.except(*keys)
     #end
 
-    #def fetch(key, *args, &block)
-    #  to_h.fetch(key, *args, &block)
-    #end
+    def fetch(key, *args, &block)
+      to_h.fetch(key, *args, &block)
+    end
 
     def invert
       to_h.invert
