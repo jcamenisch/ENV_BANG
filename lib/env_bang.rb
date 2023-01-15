@@ -76,6 +76,128 @@ class ENV_BANG
     def each(&block)
       to_h.each(&block)
     end
+
+    ####################################
+    # Implement Hash-like read methods #
+    ####################################
+
+    def assoc(key)
+      to_h.assoc(key)
+    end
+
+    #def each_key(*key, &block)
+    #  to_h.each_key(*key, &block)
+    #end
+
+    #def each_pair(*args, &block)
+    #  to_h.each_pair(*args, &block)
+    #end
+
+    #def each_value(*args, &block)
+    #  to_h.each_value(*args, &block)
+    #end
+
+    #def empty?
+    #  to_h.empty?
+    #end
+
+    #def except(*keys)
+    #  to_h.except(*keys)
+    #end
+
+    #def fetch(key, *args, &block)
+    #  to_h.fetch(key, *args, &block)
+    #end
+
+    def invert
+      to_h.invert
+    end
+
+    #def key(value)
+    #  to_h.key(value)
+    #end
+
+    #def key?(key)
+    #  vars.key?(key)
+    #end
+
+    #alias has_key? key?
+
+    def length
+      to_h.length
+    end
+
+    def rassoc(value)
+      to_h.rassoc(value)
+    end
+
+    alias size length
+
+    #def slice(*keys)
+    #  to_h.slice(*keys)
+    #end
+
+    alias to_hash to_h
+
+    #def value?(value)
+    #  vars.value?(value)
+    #end
+
+    #alias has_value? value?
+
+    #def values_at(*keys)
+    #  to_h.values_at(*keys)
+    #end
+
+    ##########################################################
+    # Implement Hash-like write methods                      #
+    # These must dump to the underlying ENV data structure--
+    # if the key is allowed by configuration
+    #
+    # TODO: Test & implement the following
+    #
+    # Note write capability will require each class adapter to be a
+    # serializer with load & dump methods.
+    ##########################################################
+
+    #def replace
+    #end
+
+    #def clear
+    #end
+
+    #def shift
+    #end
+
+    #def select!
+    #end
+
+    #def filter!
+    #end
+
+    #def keep_if
+    #end
+
+    #def delete_if
+    #end
+
+    #def reject!
+    #end
+
+    #def delete
+    #end
+
+    #def rehash
+    #end
+
+    #def store
+    #end
+
+    #def update
+    #end
+
+    #def merge!
+    #end
   end
 end
 

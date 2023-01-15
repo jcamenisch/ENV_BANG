@@ -417,4 +417,43 @@ describe ENV_BANG do
       ENV!.to_enum.to_a.must_equal ENV!.to_a
     end
   end
+
+  describe "Hash-like read methods" do
+    before do
+      ENV['ONE'] = '1'
+      ENV['A'] = 'A'
+      ENV['INT_HASH'] = 'one: 1, two: 2'
+      ENV['FLOAT'] = '1.234'
+
+      ENV!.config do
+        use 'ONE', class: Integer
+        use 'A', class: String
+        use 'INT_HASH', class: Hash, of: Integer
+        use 'FLOAT', class: Float
+      end
+    end
+
+    it "implements .assoc and .rassoc correctly" do
+      ENV!.assoc('ONE').must_equal ['ONE', 1]
+      ENV!.rassoc(1).must_equal ['ONE', 1]
+    end
+
+    it "implements .invert correctly" do
+      ENV!.invert.must_equal({
+        1 => 'ONE',
+        'A' => 'A',
+        { one: 1, two: 2 } => 'INT_HASH',
+        1.234 => 'FLOAT',
+      })
+    end
+
+    it "implements .length correctly" do
+      ENV!.length.must_equal 4
+      ENV!.size.must_equal 4
+    end
+
+    it "implements .to_hash correctly" do
+      ENV!.to_hash.must_equal ENV!.to_h
+    end
+  end
 end
