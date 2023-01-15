@@ -97,8 +97,10 @@ class ENV_BANG
       to_h.empty?
     end
 
-    def except(*keys)
-      to_h.except(*keys)
+    if {}.respond_to?(:except)
+      def except(*keys)
+        to_h.except(*keys)
+      end
     end
 
     def fetch(key, *args, &block)
