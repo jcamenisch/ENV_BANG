@@ -438,6 +438,44 @@ describe ENV_BANG do
       ENV!.rassoc(1).must_equal ['ONE', 1]
     end
 
+    it "implements .each_key correctly" do
+      ENV!.each_key.to_a.must_equal(%w[ONE A INT_HASH FLOAT])
+      keys = []
+      ENV!.each_key do |key|
+        keys << key
+      end
+      keys.must_equal(%w[ONE A INT_HASH FLOAT])
+    end
+
+    it "implements .each_pair correctly" do
+      ENV!.each_pair.to_a.must_equal(ENV!.to_a)
+      keys = []
+      ENV!.each_pair do |key|
+        keys << key
+      end
+      keys.must_equal(ENV!.to_a)
+    end
+
+    it "implements .each_value correctly" do
+      ENV!.each_value.to_a.must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+      keys = []
+      ENV!.each_value do |key|
+        keys << key
+      end
+      keys.must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+    end
+
+    it "implements .empty? correctly" do
+      ENV!.empty?.must_equal(false)
+    end
+
+    it "implements .except correctly" do
+      ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING').must_equal({
+        'ONE'      => 1,
+        'A'        => 'A',
+      })
+    end
+
     it "implements .fetch correctly" do
       ENV!.fetch('ONE').must_equal 1
       proc {
@@ -454,6 +492,10 @@ describe ENV_BANG do
         { one: 1, two: 2 } => 'INT_HASH',
         1.234 => 'FLOAT',
       })
+    end
+
+    it "implements .key correctly" do
+      ENV!.key(1).must_equal 'ONE'
     end
 
     it "implements .length correctly" do

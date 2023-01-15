@@ -85,25 +85,25 @@ class ENV_BANG
       to_h.assoc(key)
     end
 
-    #def each_key(*key, &block)
-    #  to_h.each_key(*key, &block)
-    #end
+    def each_key(*key, &block)
+      to_h.each_key(*key, &block)
+    end
 
-    #def each_pair(*args, &block)
-    #  to_h.each_pair(*args, &block)
-    #end
+    def each_pair(*args, &block)
+      to_h.each_pair(*args, &block)
+    end
 
-    #def each_value(*args, &block)
-    #  to_h.each_value(*args, &block)
-    #end
+    def each_value(*args, &block)
+      to_h.each_value(*args, &block)
+    end
 
-    #def empty?
-    #  to_h.empty?
-    #end
+    def empty?
+      to_h.empty?
+    end
 
-    #def except(*keys)
-    #  to_h.except(*keys)
-    #end
+    def except(*keys)
+      to_h.except(*keys)
+    end
 
     def fetch(key, *args, &block)
       to_h.fetch(key, *args, &block)
@@ -113,9 +113,9 @@ class ENV_BANG
       to_h.invert
     end
 
-    #def key(value)
-    #  to_h.key(value)
-    #end
+    def key(value)
+      to_h.key(value)
+    end
 
     #def key?(key)
     #  vars.key?(key)
