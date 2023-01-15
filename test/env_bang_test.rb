@@ -470,10 +470,14 @@ describe ENV_BANG do
     end
 
     it "implements .except correctly" do
-      ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING').must_equal({
-        'ONE'      => 1,
-        'A'        => 'A',
-      })
+      if {}.respond_to?(:except)
+        ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING').must_equal({
+          'ONE'      => 1,
+          'A'        => 'A',
+        })
+      else
+        ENV!.respond_to?(:except).must_equal false
+      end
     end
 
     it "implements .fetch correctly" do
