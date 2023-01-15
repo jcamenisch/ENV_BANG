@@ -498,13 +498,41 @@ describe ENV_BANG do
       ENV!.key(1).must_equal 'ONE'
     end
 
+    it "implements .key?/.has_key? correctly" do
+      ENV!.key?('ONE').must_equal true
+      ENV!.has_key?('ONE').must_equal true
+
+      ENV!.key?('TWO').must_equal false
+      ENV!.has_key?('TWO').must_equal false
+    end
+
     it "implements .length correctly" do
       ENV!.length.must_equal 4
       ENV!.size.must_equal 4
     end
 
+    it "implements .slice correctly" do
+      ENV!.slice('INT_HASH', 'FLOAT', 'NOTATHING').must_equal({
+        'INT_HASH' => { one: 1, two: 2 },
+        'FLOAT'    => 1.234,
+      })
+    end
+
     it "implements .to_hash correctly" do
       ENV!.to_hash.must_equal ENV!.to_h
+    end
+
+    it "implements .value?/has_value? correctly" do
+      ENV!.value?(1).must_equal true
+      ENV!.value?(2).must_equal false
+      ENV!.has_value?(1).must_equal true
+      ENV!.has_value?(2).must_equal false
+    end
+
+    it "implements .values_at correctly" do
+      ENV!.values_at('INT_HASH', 'FLOAT', 'NOTATHING').must_equal [
+        { one: 1, two: 2 }, 1.234, nil
+      ]
     end
   end
 end

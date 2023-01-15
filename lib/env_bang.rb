@@ -117,11 +117,11 @@ class ENV_BANG
       to_h.key(value)
     end
 
-    #def key?(key)
-    #  vars.key?(key)
-    #end
+    def key?(key)
+      vars.key?(key)
+    end
 
-    #alias has_key? key?
+    alias has_key? key?
 
     def length
       to_h.length
@@ -133,21 +133,21 @@ class ENV_BANG
 
     alias size length
 
-    #def slice(*keys)
-    #  to_h.slice(*keys)
-    #end
+    def slice(*keys)
+      to_h.slice(*keys)
+    end
 
     alias to_hash to_h
 
-    #def value?(value)
-    #  vars.value?(value)
-    #end
+    def value?(value)
+      values.include?(value)
+    end
 
-    #alias has_value? value?
+    alias has_value? value?
 
-    #def values_at(*keys)
-    #  to_h.values_at(*keys)
-    #end
+    def values_at(*keys)
+      to_h.values_at(*keys)
+    end
 
     ##########################################################
     # Implement Hash-like write methods                      #
