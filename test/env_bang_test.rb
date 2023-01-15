@@ -366,4 +366,29 @@ describe ENV_BANG do
       UNINDENTED
     end
   end
+
+  describe "Enumerable methods" do
+    before do
+      ENV['ONE'] = '1'
+      ENV['A'] = 'A'
+      ENV['INT_HASH'] = 'one: 1, two: 2'
+      ENV['FLOAT'] = '1.234'
+
+      ENV!.config do
+        use 'ONE', class: Integer
+        use 'A', class: String
+        use 'INT_HASH', class: Hash, of: Integer
+        use 'FLOAT', class: Float
+      end
+    end
+
+    it "converts keys and parsed values to a Hash" do
+      ENV!.to_h.must_equal({
+        'ONE'      => 1,
+        'A'        => 'A',
+        'INT_HASH' => { one: 1, two: 2 },
+        'FLOAT'    => 1.234,
+      })
+    end
+  end
 end

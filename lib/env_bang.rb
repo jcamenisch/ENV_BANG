@@ -63,6 +63,13 @@ class ENV_BANG
         Classes.default_class
       end
     end
+
+    ############################
+    # Implement Enumerable API #
+    ############################
+    def to_h
+      keys.map { |k| [k, self[k]] }.to_h
+    end
   end
 end
 
