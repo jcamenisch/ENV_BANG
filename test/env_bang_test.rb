@@ -390,5 +390,11 @@ describe ENV_BANG do
         'FLOAT'    => 1.234,
       })
     end
+
+    it "Doesn't allow write access via the hash (It's not a reference to internal values)" do
+      h = ENV!.to_h
+      h['A'] = 'changed'
+      ENV!['A'].must_equal 'A'
+    end
   end
 end
