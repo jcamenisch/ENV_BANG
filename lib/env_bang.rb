@@ -50,10 +50,6 @@ class ENV_BANG
       Classes.cast ENV[var], vars[var]
     end
 
-    def method_missing(method, *args, &block)
-      ENV.send(method, *args, &block)
-    end
-
     def add_class(klass, &block)
       Classes.send :define_singleton_method, klass.to_s, &block
     end
