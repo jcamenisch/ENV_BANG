@@ -1,6 +1,6 @@
 # ENV!
 
-Guarantee environment configuration correctness at app startup time.
+Verify correctness of environment configuration at startup time.
 
 [![Gem Version](https://img.shields.io/gem/v/env_bang?logo=rubygems)](https://rubygems.org/gems/env_bang)
 [![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/main.svg?logo=travis)](https://app.travis-ci.com/github/jcamenisch/ENV_BANG)
