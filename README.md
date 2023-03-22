@@ -3,7 +3,7 @@
 Verify correctness of environment configuration at startup time.
 
 [![Gem Version](https://img.shields.io/gem/v/env_bang?logo=rubygems)](https://rubygems.org/gems/env_bang)
-[![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/main.svg?logo=travis)](https://app.travis-ci.com/github/jcamenisch/ENV_BANG)
+[![Build Status](https://img.shields.io/circleci/build/github/jcamenisch/ENV_BANG/main)](https://dl.circleci.com/status-badge/redirect/gh/jcamenisch/ENV_BANG/tree/main)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/jcamenisch/ENV_BANG?logo=codeclimate)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
 [![Coverage Status](https://img.shields.io/coverallsCoverage/github/jcamenisch/ENV_BANG?logo=coveralls)](https://coveralls.io/r/jcamenisch/ENV_BANG)
 
