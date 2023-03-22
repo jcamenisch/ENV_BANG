@@ -399,7 +399,7 @@ describe ENV_BANG do
 
     it "returns an Array representation of the hash too" do
       _(ENV!.to_a).must_equal [
-        ['ONE' , 1],
+        ['ONE', 1],
         ['A', 'A'],
         ['INT_HASH', { one: 1, two: 2 }],
         ['FLOAT', 1.234],
@@ -408,7 +408,7 @@ describe ENV_BANG do
 
     it "implements other Enumerable methods too" do
       _(ENV!.each.to_a).must_equal [
-        ['ONE' , 1],
+        ['ONE', 1],
         ['A', 'A'],
         ['INT_HASH', { one: 1, two: 2 }],
         ['FLOAT', 1.234],
@@ -471,8 +471,8 @@ describe ENV_BANG do
 
     it "implements .except correctly" do
       _(ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal({
-        'ONE'      => 1,
-        'A'        => 'A',
+        'ONE' => 1,
+        'A'   => 'A',
       })
     end
 
