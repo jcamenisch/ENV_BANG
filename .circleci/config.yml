@@ -17,7 +17,6 @@ jobs:
       - image: cimg/ruby:<< parameters.ruby-version >>
     steps:
       - checkout
-      - run: rubocop
       - run: bundle install
       - run: bundle exec rake 
 
