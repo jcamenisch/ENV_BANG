@@ -1,9 +1,11 @@
 require "env_bang/version"
 require "env_bang/classes"
 require "env_bang/formatter"
+require "forwardable"
 
 class ENV_BANG
   class << self
+    extend Forwardable
     include Enumerable
 
     def config(&block)
@@ -62,39 +64,24 @@ class ENV_BANG
       end
     end
 
-    ############################
-    # Implement Enumerable API #
-    ############################
     def to_h
       keys.map { |k| [k, self[k]] }.to_h
     end
 
-    def each(&block)
-      to_h.each(&block)
-    end
+    alias to_hash to_h
 
     ####################################
     # Implement Hash-like read methods #
     ####################################
 
-    def assoc(key)
-      to_h.assoc(key)
-    end
+    def_delegators :to_h,
+      :each, :assoc, :each_pair, :each_value, :empty?, :fetch,
+      :invert, :key, :rassoc, :values_at
 
-    def each_key(*key, &block)
-      to_h.each_key(*key, &block)
-    end
+    def_delegators :vars, :each_key, :has_key?, :key?, :length, :size
 
-    def each_pair(*args, &block)
-      to_h.each_pair(*args, &block)
-    end
-
-    def each_value(*args, &block)
-      to_h.each_value(*args, &block)
-    end
-
-    def empty?
-      to_h.empty?
+    def slice(*requested_keys)
+      (requested_keys & keys).map { |k| [k, self[k]] }.to_h
     end
 
     if {}.respond_to?(:except)
@@ -103,49 +90,11 @@ class ENV_BANG
       end
     end
 
-    def fetch(key, *args, &block)
-      to_h.fetch(key, *args, &block)
-    end
-
-    def invert
-      to_h.invert
-    end
-
-    def key(value)
-      to_h.key(value)
-    end
-
-    def key?(key)
-      vars.key?(key)
-    end
-
-    alias has_key? key?
-
-    def length
-      vars.length
-    end
-
-    def rassoc(value)
-      to_h.rassoc(value)
-    end
-
-    alias size length
-
-    def slice(*requested_keys)
-      (requested_keys & keys).map { |k| [k, self[k]] }.to_h
-    end
-
-    alias to_hash to_h
-
     def value?(value)
       values.include?(value)
     end
 
     alias has_value? value?
-
-    def values_at(*keys)
-      to_h.values_at(*keys)
-    end
   end
 end
 
