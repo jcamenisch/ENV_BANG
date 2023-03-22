@@ -16,9 +16,7 @@ jobs:
       - checkout
       - ruby/install-deps:
           with-cache: false
-      - run:
-          name: "Test"
-          command: "bundle exec rake"
+      - run: "bundle exec rake"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
