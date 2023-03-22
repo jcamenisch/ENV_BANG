@@ -84,10 +84,8 @@ class ENV_BANG
       (requested_keys & keys).map { |k| [k, self[k]] }.to_h
     end
 
-    if {}.respond_to?(:except)
-      def except(*exceptions)
-        slice(*(keys - exceptions))
-      end
+    def except(*exceptions)
+      slice(*(keys - exceptions))
     end
 
     def value?(value)
