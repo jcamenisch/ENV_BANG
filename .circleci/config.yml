@@ -24,7 +24,7 @@ jobs:
       - run: bundle install
       - run: bundle exec rake
       - coveralls/upload:
-          coverage_file: .covered.db
+          coverage_file: coverage/lcov.info
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -32,7 +32,7 @@ workflows:
   buidle_and_test:
     jobs:
       - test:
-          matrix: 
+          matrix:
             parameters:
               # https://github.com/CircleCI-Public/cimg-ruby
               # only supports the last three ruby versions
