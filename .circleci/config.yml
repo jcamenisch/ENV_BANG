@@ -11,10 +11,8 @@ jobs:
   ruby-3-2-1:
     docker:
       # replace with your preferred image
-      - image: cimg/base:stable
+      - image: cimg/ruby:3.2.1
     steps:
-      - ruby/install:
-          version: '3.2.1'
       - checkout
       - ruby/install-deps
       - run:
