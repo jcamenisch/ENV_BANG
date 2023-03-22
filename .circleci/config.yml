@@ -14,8 +14,8 @@ jobs:
       - image: cimg/ruby:3.2.1
     steps:
       - checkout
-      - run: ruby --version
-      - run: bundler --version 
+      - run: bundle install
+      - run: bundle exec rake 
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
