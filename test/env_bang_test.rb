@@ -449,20 +449,20 @@ describe ENV_BANG do
 
     it "implements .each_pair correctly" do
       _(ENV!.each_pair.to_a).must_equal(ENV!.to_a)
-      keys = []
-      ENV!.each_pair do |key|
-        keys << key
+      pairs = []
+      ENV!.each_pair do |pair|
+        pairs << pair
       end
-      _(keys).must_equal(ENV!.to_a)
+      _(pairs).must_equal(ENV!.to_a)
     end
 
     it "implements .each_value correctly" do
       _(ENV!.each_value.to_a).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
-      keys = []
-      ENV!.each_value do |key|
-        keys << key
+      values = []
+      ENV!.each_value do |value|
+        values << value
       end
-      _(keys).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+      _(values).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
     end
 
     it "implements .empty? correctly" do
