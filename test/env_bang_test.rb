@@ -383,7 +383,7 @@ describe ENV_BANG do
     end
 
     it "converts keys and parsed values to a Hash" do
-      ENV!.to_h.must_equal({
+      _(ENV!.to_h).must_equal({
         'ONE'      => 1,
         'A'        => 'A',
         'INT_HASH' => { one: 1, two: 2 },
@@ -394,11 +394,11 @@ describe ENV_BANG do
     it "Doesn't allow write access via the hash (It's not a reference to internal values)" do
       h = ENV!.to_h
       h['A'] = 'changed'
-      ENV!['A'].must_equal 'A'
+      _(ENV!['A']).must_equal 'A'
     end
 
     it "returns an Array representation of the hash too" do
-      ENV!.to_a.must_equal [
+      _(ENV!.to_a).must_equal [
         ['ONE' , 1],
         ['A', 'A'],
         ['INT_HASH', { one: 1, two: 2 }],
@@ -407,14 +407,14 @@ describe ENV_BANG do
     end
 
     it "implements other Enumerable methods too" do
-      ENV!.each.to_a.must_equal [
+      _(ENV!.each.to_a).must_equal [
         ['ONE' , 1],
         ['A', 'A'],
         ['INT_HASH', { one: 1, two: 2 }],
         ['FLOAT', 1.234],
       ]
 
-      ENV!.to_enum.to_a.must_equal ENV!.to_a
+      _(ENV!.to_enum.to_a).must_equal ENV!.to_a
     end
   end
 
@@ -434,63 +434,63 @@ describe ENV_BANG do
     end
 
     it "implements .assoc and .rassoc correctly" do
-      ENV!.assoc('ONE').must_equal ['ONE', 1]
-      ENV!.rassoc(1).must_equal ['ONE', 1]
+      _(ENV!.assoc('ONE')).must_equal ['ONE', 1]
+      _(ENV!.rassoc(1)).must_equal ['ONE', 1]
     end
 
     it "implements .each_key correctly" do
-      ENV!.each_key.to_a.must_equal(%w[ONE A INT_HASH FLOAT])
+      _(ENV!.each_key.to_a).must_equal(%w[ONE A INT_HASH FLOAT])
       keys = []
       ENV!.each_key do |key|
         keys << key
       end
-      keys.must_equal(%w[ONE A INT_HASH FLOAT])
+      _(keys).must_equal(%w[ONE A INT_HASH FLOAT])
     end
 
     it "implements .each_pair correctly" do
-      ENV!.each_pair.to_a.must_equal(ENV!.to_a)
+      _(ENV!.each_pair.to_a).must_equal(ENV!.to_a)
       keys = []
       ENV!.each_pair do |key|
         keys << key
       end
-      keys.must_equal(ENV!.to_a)
+      _(keys).must_equal(ENV!.to_a)
     end
 
     it "implements .each_value correctly" do
-      ENV!.each_value.to_a.must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+      _(ENV!.each_value.to_a).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
       keys = []
       ENV!.each_value do |key|
         keys << key
       end
-      keys.must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+      _(keys).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
     end
 
     it "implements .empty? correctly" do
-      ENV!.empty?.must_equal(false)
+      _(ENV!.empty?).must_equal(false)
     end
 
     it "implements .except correctly" do
       if {}.respond_to?(:except)
-        ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING').must_equal({
+        _(ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal({
           'ONE'      => 1,
           'A'        => 'A',
         })
       else
-        ENV!.respond_to?(:except).must_equal false
+        _(ENV!.respond_to?(:except)).must_equal false
       end
     end
 
     it "implements .fetch correctly" do
-      ENV!.fetch('ONE').must_equal 1
-      proc {
+      _(ENV!.fetch('ONE')).must_equal 1
+      _{
         ENV!.fetch('TWO')
       }.must_raise KeyError
-      ENV!.fetch('TWO', 2).must_equal 2
-      ENV!.fetch('TWO') { 22 }.must_equal 22
+      _(ENV!.fetch('TWO', 2)).must_equal 2
+      _(ENV!.fetch('TWO') { 22 }).must_equal 22
     end
 
     it "implements .invert correctly" do
-      ENV!.invert.must_equal({
+      _(ENV!.invert).must_equal({
         1 => 'ONE',
         'A' => 'A',
         { one: 1, two: 2 } => 'INT_HASH',
@@ -499,42 +499,42 @@ describe ENV_BANG do
     end
 
     it "implements .key correctly" do
-      ENV!.key(1).must_equal 'ONE'
+      _(ENV!.key(1)).must_equal 'ONE'
     end
 
     it "implements .key?/.has_key? correctly" do
-      ENV!.key?('ONE').must_equal true
-      ENV!.has_key?('ONE').must_equal true
+      _(ENV!.key?('ONE')).must_equal true
+      _(ENV!.has_key?('ONE')).must_equal true
 
-      ENV!.key?('TWO').must_equal false
-      ENV!.has_key?('TWO').must_equal false
+      _(ENV!.key?('TWO')).must_equal false
+      _(ENV!.has_key?('TWO')).must_equal false
     end
 
     it "implements .length correctly" do
-      ENV!.length.must_equal 4
-      ENV!.size.must_equal 4
+      _(ENV!.length).must_equal 4
+      _(ENV!.size).must_equal 4
     end
 
     it "implements .slice correctly" do
-      ENV!.slice('INT_HASH', 'FLOAT', 'NOTATHING').must_equal({
+      _(ENV!.slice('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal({
         'INT_HASH' => { one: 1, two: 2 },
         'FLOAT'    => 1.234,
       })
     end
 
     it "implements .to_hash correctly" do
-      ENV!.to_hash.must_equal ENV!.to_h
+      _(ENV!.to_hash).must_equal ENV!.to_h
     end
 
     it "implements .value?/has_value? correctly" do
-      ENV!.value?(1).must_equal true
-      ENV!.value?(2).must_equal false
-      ENV!.has_value?(1).must_equal true
-      ENV!.has_value?(2).must_equal false
+      _(ENV!.value?(1)).must_equal true
+      _(ENV!.value?(2)).must_equal false
+      _(ENV!.has_value?(1)).must_equal true
+      _(ENV!.has_value?(2)).must_equal false
     end
 
     it "implements .values_at correctly" do
-      ENV!.values_at('INT_HASH', 'FLOAT', 'NOTATHING').must_equal [
+      _(ENV!.values_at('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal [
         { one: 1, two: 2 }, 1.234, nil
       ]
     end
