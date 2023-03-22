@@ -366,4 +366,173 @@ describe ENV_BANG do
       UNINDENTED
     end
   end
+
+  describe "Enumerable methods" do
+    before do
+      ENV['ONE'] = '1'
+      ENV['A'] = 'A'
+      ENV['INT_HASH'] = 'one: 1, two: 2'
+      ENV['FLOAT'] = '1.234'
+
+      ENV!.config do
+        use 'ONE', class: Integer
+        use 'A', class: String
+        use 'INT_HASH', class: Hash, of: Integer
+        use 'FLOAT', class: Float
+      end
+    end
+
+    it "converts keys and parsed values to a Hash" do
+      _(ENV!.to_h).must_equal({
+        'ONE'      => 1,
+        'A'        => 'A',
+        'INT_HASH' => { one: 1, two: 2 },
+        'FLOAT'    => 1.234,
+      })
+    end
+
+    it "Doesn't allow write access via the hash (It's not a reference to internal values)" do
+      h = ENV!.to_h
+      h['A'] = 'changed'
+      _(ENV!['A']).must_equal 'A'
+    end
+
+    it "returns an Array representation of the hash too" do
+      _(ENV!.to_a).must_equal [
+        ['ONE', 1],
+        ['A', 'A'],
+        ['INT_HASH', { one: 1, two: 2 }],
+        ['FLOAT', 1.234],
+      ]
+    end
+
+    it "implements other Enumerable methods too" do
+      _(ENV!.each.to_a).must_equal [
+        ['ONE', 1],
+        ['A', 'A'],
+        ['INT_HASH', { one: 1, two: 2 }],
+        ['FLOAT', 1.234],
+      ]
+
+      _(ENV!.to_enum.to_a).must_equal ENV!.to_a
+    end
+  end
+
+  describe "Hash-like read methods" do
+    before do
+      ENV['ONE'] = '1'
+      ENV['A'] = 'A'
+      ENV['INT_HASH'] = 'one: 1, two: 2'
+      ENV['FLOAT'] = '1.234'
+
+      ENV!.config do
+        use 'ONE', class: Integer
+        use 'A', class: String
+        use 'INT_HASH', class: Hash, of: Integer
+        use 'FLOAT', class: Float
+      end
+    end
+
+    it "implements .assoc and .rassoc correctly" do
+      _(ENV!.assoc('ONE')).must_equal ['ONE', 1]
+      _(ENV!.rassoc(1)).must_equal ['ONE', 1]
+    end
+
+    it "implements .each_key correctly" do
+      _(ENV!.each_key.to_a).must_equal(%w[ONE A INT_HASH FLOAT])
+      keys = []
+      ENV!.each_key do |key|
+        keys << key
+      end
+      _(keys).must_equal(%w[ONE A INT_HASH FLOAT])
+    end
+
+    it "implements .each_pair correctly" do
+      _(ENV!.each_pair.to_a).must_equal(ENV!.to_a)
+      pairs = []
+      ENV!.each_pair do |pair|
+        pairs << pair
+      end
+      _(pairs).must_equal(ENV!.to_a)
+    end
+
+    it "implements .each_value correctly" do
+      _(ENV!.each_value.to_a).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+      values = []
+      ENV!.each_value do |value|
+        values << value
+      end
+      _(values).must_equal [1, 'A', { one: 1, two: 2 }, 1.234]
+    end
+
+    it "implements .empty? correctly" do
+      _(ENV!.empty?).must_equal(false)
+    end
+
+    it "implements .except correctly" do
+      _(ENV!.except('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal({
+        'ONE' => 1,
+        'A'   => 'A',
+      })
+    end
+
+    it "implements .fetch correctly" do
+      _(ENV!.fetch('ONE')).must_equal 1
+      _{
+        ENV!.fetch('TWO')
+      }.must_raise KeyError
+      _(ENV!.fetch('TWO', 2)).must_equal 2
+      _(ENV!.fetch('TWO') { 22 }).must_equal 22
+    end
+
+    it "implements .invert correctly" do
+      _(ENV!.invert).must_equal({
+        1 => 'ONE',
+        'A' => 'A',
+        { one: 1, two: 2 } => 'INT_HASH',
+        1.234 => 'FLOAT',
+      })
+    end
+
+    it "implements .key correctly" do
+      _(ENV!.key(1)).must_equal 'ONE'
+    end
+
+    it "implements .key?/.has_key? correctly" do
+      _(ENV!.key?('ONE')).must_equal true
+      _(ENV!.has_key?('ONE')).must_equal true
+
+      _(ENV!.key?('TWO')).must_equal false
+      _(ENV!.has_key?('TWO')).must_equal false
+    end
+
+    it "implements .length correctly" do
+      _(ENV!.length).must_equal 4
+      _(ENV!.size).must_equal 4
+    end
+
+    it "implements .slice correctly" do
+      _(ENV!.slice('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal({
+        'INT_HASH' => { one: 1, two: 2 },
+        'FLOAT'    => 1.234,
+      })
+    end
+
+    it "implements .to_hash correctly" do
+      _(ENV!.to_hash).must_equal ENV!.to_h
+    end
+
+    it "implements .value?/has_value? correctly" do
+      _(ENV!.value?(1)).must_equal true
+      _(ENV!.value?(2)).must_equal false
+      _(ENV!.has_value?(1)).must_equal true
+      _(ENV!.has_value?(2)).must_equal false
+    end
+
+    it "implements .values_at correctly" do
+      _(ENV!.values_at('INT_HASH', 'FLOAT', 'NOTATHING')).must_equal [
+        { one: 1, two: 2 }, 1.234, nil
+      ]
+    end
+  end
 end

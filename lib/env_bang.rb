@@ -1,9 +1,13 @@
 require "env_bang/version"
 require "env_bang/classes"
 require "env_bang/formatter"
+require "forwardable"
 
 class ENV_BANG
   class << self
+    extend Forwardable
+    include Enumerable
+
     def config(&block)
       instance_eval(&block)
     end
@@ -48,10 +52,6 @@ class ENV_BANG
       Classes.cast ENV[var], vars[var]
     end
 
-    def method_missing(method, *args, &block)
-      ENV.send(method, *args, &block)
-    end
-
     def add_class(klass, &block)
       Classes.send :define_singleton_method, klass.to_s, &block
     end
@@ -63,6 +63,36 @@ class ENV_BANG
         Classes.default_class
       end
     end
+
+    def to_h
+      keys.map { |k| [k, self[k]] }.to_h
+    end
+
+    alias to_hash to_h
+
+    ####################################
+    # Implement Hash-like read methods #
+    ####################################
+
+    def_delegators :to_h,
+      :each, :assoc, :each_pair, :each_value, :empty?, :fetch,
+      :invert, :key, :rassoc, :values_at
+
+    def_delegators :vars, :each_key, :has_key?, :key?, :length, :size
+
+    def slice(*requested_keys)
+      (requested_keys & keys).map { |k| [k, self[k]] }.to_h
+    end
+
+    def except(*exceptions)
+      slice(*(keys - exceptions))
+    end
+
+    def value?(value)
+      values.include?(value)
+    end
+
+    alias has_value? value?
   end
 end
 
