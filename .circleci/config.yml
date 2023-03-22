@@ -14,7 +14,8 @@ jobs:
       - image: cimg/ruby:3.2.1
     steps:
       - checkout
-      - ruby/install-deps
+      - ruby/install-deps:
+          with-cache: false
       - run:
           name: "Test"
           command: "bundle exec rake"
