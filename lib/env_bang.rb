@@ -98,8 +98,8 @@ class ENV_BANG
     end
 
     if {}.respond_to?(:except)
-      def except(*keys)
-        to_h.except(*keys)
+      def except(*exceptions)
+        slice(*(keys - exceptions))
       end
     end
 
@@ -122,7 +122,7 @@ class ENV_BANG
     alias has_key? key?
 
     def length
-      to_h.length
+      vars.length
     end
 
     def rassoc(value)
@@ -131,8 +131,8 @@ class ENV_BANG
 
     alias size length
 
-    def slice(*keys)
-      to_h.slice(*keys)
+    def slice(*requested_keys)
+      (requested_keys & keys).map { |k| [k, self[k]] }.to_h
     end
 
     alias to_hash to_h
