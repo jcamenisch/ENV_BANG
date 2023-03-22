@@ -1,19 +1,17 @@
 # ENV!
 
-Do a bang-up job managing your environment variables.
+Verify correctness of environment configuration at startup time.
 
 [![Gem Version](https://img.shields.io/gem/v/env_bang?logo=rubygems)](https://rubygems.org/gems/env_bang)
-[![Build Status](https://img.shields.io/travis/jcamenisch/ENV_BANG/main.svg?logo=travis)](https://app.travis-ci.com/github/jcamenisch/ENV_BANG)
+[![Build Status](https://img.shields.io/circleci/build/github/jcamenisch/ENV_BANG/main)](https://dl.circleci.com/status-badge/redirect/gh/jcamenisch/ENV_BANG/tree/main)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/jcamenisch/ENV_BANG?logo=codeclimate)](https://codeclimate.com/github/jcamenisch/ENV_BANG)
 [![Coverage Status](https://img.shields.io/coverallsCoverage/github/jcamenisch/ENV_BANG?logo=coveralls)](https://coveralls.io/r/jcamenisch/ENV_BANG)
 
 ENV! provides a thin wrapper around ENV to accomplish a few things:
 
 - Provide a central place to specify all your app’s environment variables.
-- Fail loudly and helpfully if any environment variables are missing.
-- Prevent an application from starting up with missing environment variables.
-  (This is especially helpful in environments like Heroku, as your app will
-  continue running the old code until the server is configured for a new revision.)
+- Fail loudly and helpfully if any environment variables are missing or invalid.
+- Prevent an application from starting up with invalid environment variables.
 
 ## Installation
 
