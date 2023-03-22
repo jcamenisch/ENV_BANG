@@ -16,10 +16,12 @@ jobs:
       # replace with your preferred image
       - image: cimg/ruby:<< parameters.ruby-version >>
     resource_class: small
+    environment:
+      COVERAGE: Summary
     steps:
       - checkout
       - run: bundle install
-      - run: COVERAGE=Summary bundle exec rake
+      - run: bundle exec rake
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
