@@ -15,6 +15,7 @@ jobs:
     docker:
       # replace with your preferred image
       - image: cimg/ruby:<< parameters.ruby-version >>
+    resource_class: small
     steps:
       - checkout
       - run: bundle install
