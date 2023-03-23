@@ -25,6 +25,14 @@ jobs:
       - coveralls/upload:
           coverage_file: coverage/lcov.info
           compare_ref: main
+          flag_name: << parameters.ruby-version >>
+          parallel: true
+  done:
+    docker:
+      - image: cimg/ruby:3.2
+    steps:
+      - coveralls/upload:
+          carryforward: '3.2'
           parallel_finished: true
 
 
