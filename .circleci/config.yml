@@ -25,13 +25,8 @@ jobs:
       - coveralls/upload:
           coverage_file: coverage/lcov.info
           compare_ref: main
-  coveralls-finished:
-    docker:
-      - image: cimg/ruby:3.2
-    resource_class: small
-    steps:
-      - coveralls/upload:
-          parallel_finished: true
+          parallel: false
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -44,4 +39,3 @@ workflows:
               # https://github.com/CircleCI-Public/cimg-ruby
               # only supports the last three ruby versions
               ruby-version: ["2.6", "2.7", "3.0", "3.2"]
-      - coveralls-finished
