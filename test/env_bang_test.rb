@@ -233,7 +233,7 @@ describe ENV_BANG do
       _(ENV!['STRING_RANGE']).must_equal 'az'..'za'
     end
 
-    it "raises if range is invalid" do
+    it "raises on invalid Range" do
       ENV['BAD_RANGE'] = '1..'
       _{
         ENV!.use 'BAD_RANGE', class: Range
