@@ -227,10 +227,17 @@ describe ENV_BANG do
     end
 
     it "casts Ranges of strings" do
-      ENV['FLOAT_RANGE'] = 'az..za'
-      ENV!.use 'FLOAT_RANGE', class: Range, of: String
+      ENV['STRING_RANGE'] = 'az..za'
+      ENV!.use 'STRING_RANGE', class: Range, of: String
 
-      _(ENV!['FLOAT_RANGE']).must_equal 'az'..'za'
+      _(ENV!['STRING_RANGE']).must_equal 'az'..'za'
+    end
+
+    it "raises on invalid Range" do
+      ENV['BAD_RANGE'] = '1..'
+      _{
+        ENV!.use 'BAD_RANGE', class: Range
+      }.must_raise ArgumentError
     end
 
     it "allows default class to be overridden" do
