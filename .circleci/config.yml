@@ -27,7 +27,7 @@ jobs:
           compare_ref: main
   coveralls-finished:
     docker:
-      - image: cimg/ruby:<< parameters.ruby-version >>
+      - image: cimg/ruby:3.2
     resource_class: small
     steps:
       - coveralls/upload:
