@@ -25,14 +25,14 @@ jobs:
       - coveralls/upload:
           coverage_file: coverage/lcov.info
           compare_ref: main
-          flag_name: << parameters.ruby-version >>
           parallel: true
+          flag_name: test-<< parameters.ruby-version >>
   done:
     docker:
       - image: cimg/ruby:3.2
     steps:
       - coveralls/upload:
-          carryforward: '3.2'
+          carryforward: 'test-3.2'
           parallel_finished: true
 
 
@@ -47,3 +47,4 @@ workflows:
               # https://github.com/CircleCI-Public/cimg-ruby
               # only supports the last three ruby versions
               ruby-version: ["2.6", "2.7", "3.0", "3.2"]
+      - done
