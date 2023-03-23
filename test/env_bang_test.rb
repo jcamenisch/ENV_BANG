@@ -233,6 +233,13 @@ describe ENV_BANG do
       _(ENV!['STRING_RANGE']).must_equal 'az'..'za'
     end
 
+    it "raises if range is invalid" do
+      ENV['BAD_RANGE'] = '1..'
+      _{
+        ENV!.use 'BAD_RANGE', class: Range
+      }.must_raise ArgumentError
+    end
+
     it "allows default class to be overridden" do
       _(ENV!.default_class).must_equal :StringUnlessFalsey
       ENV!.config { default_class String }
