@@ -25,7 +25,7 @@ jobs:
       - coveralls/upload:
           coverage_file: coverage/lcov.info
           compare_ref: main
-          parallel: false
+          parallel_finished: true
 
 
 # Invoke jobs via workflows
