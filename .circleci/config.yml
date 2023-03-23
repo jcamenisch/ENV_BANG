@@ -47,4 +47,6 @@ workflows:
               # https://github.com/CircleCI-Public/cimg-ruby
               # only supports the last three ruby versions
               ruby-version: ["2.6", "2.7", "3.0", "3.2"]
-      - done
+      - done:
+          requires:
+            - test
