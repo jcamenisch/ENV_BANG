@@ -6,6 +6,20 @@ describe ENV_BANG do
     ENV_BANG::Classes.default_class = nil
   end
 
+  after do
+    ENV_BANG.clear_config
+  end
+
+  it "puts ENV back into its original condition" do
+    ENV['TEST_VAR'] = 'a value'
+
+    ENV_BANG.config { }
+    _(ENV['TEST_VAR']).must_be_nil
+
+    ENV_BANG.clear_config
+    _(ENV['TEST_VAR']).must_equal 'a value'
+  end
+
   it "Raises exception if unconfigured ENV var requested" do
     ENV['UNCONFIGURED'] = 'unconfigured'
     _{ ENV!['UNCONFIGURED'] }.must_raise KeyError
@@ -209,11 +223,12 @@ describe ENV_BANG do
 
     it "casts exclusive Ranges as directed" do
       ENV['EXCLUSIVE_RANGE'] = '1..100'
+      ENV['ANOTHER_EXCLUSIVE_RANGE'] = '1...100'
+
       ENV!.use 'EXCLUSIVE_RANGE', class: Range, exclusive: true
 
       _(ENV!['EXCLUSIVE_RANGE']).must_equal 1...100
 
-      ENV['ANOTHER_EXCLUSIVE_RANGE'] = '1...100'
       ENV!.use 'ANOTHER_EXCLUSIVE_RANGE', class: Range, exclusive: true
 
       _(ENV!['ANOTHER_EXCLUSIVE_RANGE']).must_equal 1...100

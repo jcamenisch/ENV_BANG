@@ -9,7 +9,17 @@ class ENV_BANG
     include Enumerable
 
     def config(&block)
+      load_and_clear_env
       instance_eval(&block)
+    end
+
+    def clear_config
+      @orig_env&.each do |k, v|
+        ENV[k] = v
+      end
+
+      @vars = nil
+      @orig_env = nil
     end
 
     def use(var, *args)
@@ -17,9 +27,12 @@ class ENV_BANG
       description = args.first.is_a?(String) ? args.shift : nil
       options = args.last.is_a?(Hash) ? args.pop : {}
 
-      unless ENV.has_key?(var)
-        ENV[var] = options.fetch(:default) { raise_formatted_error(var, description) }.to_s
+      unless orig_env.has_key?(var)
+        orig_env[var] = options.fetch(:default) { raise_formatted_error(var, description) }.to_s
       end
+
+      # Put original value back in ENV, in case the app ever spawns a child process.
+      ENV[var] = orig_env[var]
 
       vars[var] = options
 
@@ -49,7 +62,7 @@ class ENV_BANG
       var = var.to_s
       raise KeyError.new("ENV_BANG is not configured to use var #{var}") unless vars.has_key?(var)
 
-      Classes.cast ENV[var], vars[var]
+      Classes.cast orig_env[var], vars[var]
     end
 
     def add_class(klass, &block)
@@ -93,6 +106,21 @@ class ENV_BANG
     end
 
     alias has_value? value?
+
+  private
+    def load_and_clear_env
+      @orig_env = {}
+
+      ENV.each_key do |key|
+        @orig_env[key] = ENV.delete(key)
+      end
+
+      @orig_env
+    end
+
+    def orig_env
+      @orig_env || load_and_clear_env
+    end
   end
 end
 
